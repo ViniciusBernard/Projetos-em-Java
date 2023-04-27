@@ -1,0 +1,123 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Pagamentos extends JFrame {
+
+	private JPanel contentPane;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JTextField txtValorVenda;
+	private JTextField txtPrecoFinal;
+	private JComboBox comboBox;
+	private JButton btnCalcular;
+	private JButton btnLimpar;
+
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Pagamentos frame = new Pagamentos();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+	public Pagamentos() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 475, 170);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblNewLabel = new JLabel("Valor da venda:");
+		lblNewLabel.setBounds(10, 11, 166, 21);
+		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("Forma de Pagamento");
+		lblNewLabel_1.setBounds(10, 43, 135, 21);
+		contentPane.add(lblNewLabel_1);
+		
+		lblNewLabel_2 = new JLabel("Preço final ");
+		lblNewLabel_2.setBounds(10, 75, 135, 21);
+		contentPane.add(lblNewLabel_2);
+		
+		txtValorVenda = new JTextField();
+		txtValorVenda.setBounds(186, 11, 239, 20);
+		contentPane.add(txtValorVenda);
+		txtValorVenda.setColumns(10);
+		
+		txtPrecoFinal = new JTextField();
+		txtPrecoFinal.setBounds(186, 75, 239, 20);
+		contentPane.add(txtPrecoFinal);
+		txtPrecoFinal.setColumns(10);
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Dinheiro", "Cheque", "Cartão"}));
+		comboBox.setBounds(186, 42, 239, 22);
+		contentPane.add(comboBox);
+		
+		btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				double Valor = Double.parseDouble(txtValorVenda.getText());
+				double Total = 0;
+				
+				
+				
+						if (comboBox.getSelectedIndex() == 0 ) {
+					
+							Total = (Valor - (Valor * 0.05));
+						}
+				
+				
+						if (comboBox.getSelectedIndex() == 1 ) {
+							Total = (Valor + (Valor * 0.10));
+						}
+			
+				
+						if (comboBox.getSelectedIndex() ==  2 )  {
+							Total = (Valor + (Valor * 0.05));
+					
+						}
+					
+				
+						txtPrecoFinal.setText(String.valueOf(Total));
+
+			
+			}
+		});
+		btnCalcular.setBounds(20, 106, 199, 23);
+		contentPane.add(btnCalcular);
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				txtValorVenda.setText(null);
+				txtPrecoFinal.setText(null);
+				
+			}
+		});
+		btnLimpar.setBounds(229, 106, 196, 23);
+		contentPane.add(btnLimpar);
+	}
+}
