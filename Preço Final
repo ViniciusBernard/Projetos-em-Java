@@ -1,0 +1,133 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
+
+public class PrecoFInal extends JFrame {
+
+	private JPanel contentPane;
+	private JLabel lblNewLabel;
+	private JRadioButton rdbDinheiro;
+	private JRadioButton rdbCartao;
+	private JRadioButton rdbCheque;
+	private JTextField txtValorVenda;
+	private JLabel lblNewLabel_1;
+	private JTextField txtPrecoFinal;
+	private JButton btnCalcular;
+	private JButton btnLimpar;
+	private final ButtonGroup btgFormaDePagamento = new ButtonGroup();
+
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PrecoFInal frame = new PrecoFInal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+	public PrecoFInal() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 230);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblNewLabel = new JLabel("Entre com o valor da venda:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel.setBounds(10, 11, 184, 23);
+		contentPane.add(lblNewLabel);
+		
+		rdbDinheiro = new JRadioButton("Dinheiro");
+		btgFormaDePagamento.add(rdbDinheiro);
+		rdbDinheiro.setBounds(44, 59, 83, 23);
+		contentPane.add(rdbDinheiro);
+		
+		rdbCartao = new JRadioButton("Cartão");
+		btgFormaDePagamento.add(rdbCartao);
+		rdbCartao.setBounds(174, 59, 83, 23);
+		contentPane.add(rdbCartao);
+		
+		rdbCheque = new JRadioButton("Cheque");
+		btgFormaDePagamento.add(rdbCheque);
+		rdbCheque.setBounds(314, 59, 83, 23);
+		contentPane.add(rdbCheque);
+		
+		txtValorVenda = new JTextField();
+		txtValorVenda.setBounds(204, 13, 181, 20);
+		contentPane.add(txtValorVenda);
+		txtValorVenda.setColumns(10);
+		
+		lblNewLabel_1 = new JLabel("Preço final da compra:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1.setBounds(10, 102, 145, 23);
+		contentPane.add(lblNewLabel_1);
+		
+		txtPrecoFinal = new JTextField();
+		txtPrecoFinal.setBounds(204, 104, 181, 20);
+		contentPane.add(txtPrecoFinal);
+		txtPrecoFinal.setColumns(10);
+		
+		btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			// Variaveis
+				
+				double Valor = Double.parseDouble(txtValorVenda.getText());
+				double Total = 0;
+				
+				
+			//Radio Button (Opções)
+				if(rdbDinheiro.isSelected()) {
+					
+					Total = Valor - (Valor * 5/100);
+				}
+				
+				else if (rdbCartao.isSelected()) {
+					Total = Valor + (Valor * 10/100);
+				}
+					
+				else if (rdbCheque.isSelected()) {
+					Total = Valor + (Valor * 5/100);
+				}
+					
+				txtPrecoFinal.setText(String.valueOf(Total));
+			
+				
+			}
+		});
+		btnCalcular.setBounds(64, 155, 117, 31);
+		contentPane.add(btnCalcular);
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				txtValorVenda.setText(null);
+				txtPrecoFinal.setText(null);
+				btgFormaDePagamento.clearSelection();
+				
+			}
+		});
+		btnLimpar.setBounds(204, 155, 111, 31);
+		contentPane.add(btnLimpar);
+	}
+}
